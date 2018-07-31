@@ -8,7 +8,7 @@ gray = cv2.GaussianBlur(gray, (5, 5), 0)
 edges = cv2.Canny(gray, 50, 150, apertureSize = 3)
 
 #lines = cv2.HoughLines(edges, 1, np.pi/180,50)
-lines = cv2.HoughLines(edges, 1, np.pi/360,200, min_theta = -np.pi/180, max_theta = 90*np.pi/180)
+lines = cv2.HoughLines(edges, 0.1, np.pi/360,100)
 
 for j in range(len(lines)):
     for rho, theta in lines[j]:
@@ -27,13 +27,13 @@ for j in range(len(lines)):
 
 
 
-plt.subplot(121)
-plt.imshow(gray, cmap = 'Greys_r')
-plt.subplot(122)
+#plt.subplot(121)
+#plt.imshow(gray, cmap = 'Greys_r')
+#plt.subplot(122)
 plt.imshow(img)
-
-plt.figure()
-plt.imshow(edges)
+#
+#plt.figure()
+#plt.imshow(edges)
 #plt.subplot(212)
 #plt.scatter([x[0][0] for x in lines],[ x[0][1] for x in lines])
 plt.tight_layout()
