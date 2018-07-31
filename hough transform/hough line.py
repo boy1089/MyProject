@@ -2,14 +2,14 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img= cv2.imread('1.jpg')
+img= cv2.imread('sudoku.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 gray = cv2.GaussianBlur(gray, (5, 5), 0)
-edges = cv2.Canny(gray, 100, 150, apertureSize = 3)
+edges = cv2.Canny(gray, 50, 150, apertureSize = 3)
 
 #lines = cv2.HoughLines(edges, 1, np.pi/180,50)
-lines = cv2.HoughLinesP(edges, 1, np.pi/180, 50)
-    
+lines = cv2.HoughLines(edges, 1, np.pi/360,200, min_theta = -np.pi/180, max_theta = 90*np.pi/180)
+
 for j in range(len(lines)):
     for rho, theta in lines[j]:
         a = np.cos(theta)
@@ -23,15 +23,17 @@ for j in range(len(lines)):
         y2 = int(y0 - 1000*(a))
             
         
-        cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
+        cv2.line(img,(x1,y1),(x2,y2),(0,0,255),1)
 
 
 
-plt.subplot(221)
+plt.subplot(121)
 plt.imshow(gray, cmap = 'Greys_r')
-plt.subplot(222)
-plt.imshow(edges)
-plt.subplot(223)
+plt.subplot(122)
 plt.imshow(img)
-plt.subplot(224)
-plt.scatter([x[0][0] for x in lines],[ x[0][1] for x in lines])
+
+plt.figure()
+plt.imshow(edges)
+#plt.subplot(212)
+#plt.scatter([x[0][0] for x in lines],[ x[0][1] for x in lines])
+plt.tight_layout()
