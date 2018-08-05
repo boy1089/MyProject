@@ -3,7 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 img= cv2.imread('sudoku.png')
-img = img[:350, :350]
+#img = img[:350, :350]
+img = cv2.resize(img, (350, 350))
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 #gray = cv2.GaussianBlur(gray, (5, 5), 0)
 
@@ -18,9 +19,9 @@ for j in range(len(lines)):
         cv2.line(img,(x1,y1),(x2,y2),(0,255,0),2)
 
 
-#plt.figure()
+plt.figure()
 #plt.subplot(121)
-#plt.imshow(img, cmap = 'Greys_r')
+plt.imshow(img, cmap = 'Greys_r')
 #plt.subplot(122)
 plt.imshow(canny)
 

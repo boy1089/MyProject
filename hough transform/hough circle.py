@@ -2,15 +2,20 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img= cv2.imread('circles.jpg')
+img= cv2.imread('circle.png')
+
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray = cv2.resize(gray, None, fx = 2, fy  = 2 )
+
 #gray = cv2.GaussianBlur(gray, (5, 5), 0)
 
 canny = cv2.Canny(gray, 30, 150)
 
 #circles = cv2.HoughCircles(canny, cv2.HOUGH_GRADIENT, 1, 100, param1 = 200, param2 =30, minRadius = 30, maxRadius = 100)
 
-circles = cv2.HoughCircles(canny, cv2.HOUGH_GRADIENT, 1, minDist = 0, param1 = 1, param2 =1)
+circles = cv2.HoughCircles(canny, cv2.HOUGH_GRADIENT, 1, 150, param1 = 1500, param2 =60)
+
+#circles = cv2.HoughCircles(canny, cv2.HOUGH_GRADIENT, 5,, 150,  minDist = 0, param1 = 1, param2 =1)
 circles = np.uint16(np.around(circles))
 
 canny = cv2.cvtColor(canny, cv2.COLOR_GRAY2BGR)
